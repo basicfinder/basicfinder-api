@@ -1,0 +1,34 @@
+{
+
+    "name": "basicfinder/basicfiner-api",
+
+
+    "type": "yii2-extension",
+
+    "description": "The api of Basicfinder",
+    "keywords": ["yii2", "basicfinder", "api", "helper"],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/basicfinder/basicfiner-api/issues",
+        "wiki": "https://github.com/basicfinder/basicfiner-api/wiki",
+        "source": "https://github.com/basicfinder/basicfiner-api"
+    },
+    "authors": [
+        {
+            "name": "xulihui",
+            "email": "xulihui1985@126.com"
+        }
+    ],
+
+
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+
+    
+    "autoload": {
+        "psr-4": {
+            "basicfinder\basicfinerapi\\": ""
+        }
+    }
+}

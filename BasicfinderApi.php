@@ -13,7 +13,7 @@ use Yii;
 
 class BasicfinderApi
 {
-    private $apiHost = 'http://devv3.api.basicfinder.com';
+    private $apiHost = 'http://v3.api.basicfinder.com';
     private $appKey = null;
     private $appVersion = null;
     private $username = null;
@@ -26,11 +26,9 @@ class BasicfinderApi
     }
     
     /**
-     * 初始化, 
-     * 因继承类原因, 必须带默认值
-     * @see \yii\base\BaseObject::init()
+     * 初始化
      */
-    public function init($appKey = '', $appVersion = '', $username = '', $password = '')
+    public function init($appKey, $appVersion, $username, $password)
     {
         $this->appKey = $appKey;
         $this->appVersion = $appVersion;

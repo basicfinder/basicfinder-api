@@ -5,6 +5,18 @@
  * @copyright www.basicfinder.com
  * @author lihuixu@basicfinder.com
  * @version v1 20190222
+ * 
+ * 
+ * ```配置信息`````````````````````````````
+ * //倍赛账户信息
+    'beisai.api' => [
+        'app_host' => 'http://devv3.api.basicfinder.com',
+        'app_key' => 'dataset',
+        'app_version' => '1.0.0',
+        'username' => '',
+        'password' => '',
+    ]
+    ```````````````````````````````````````
  */
 
 namespace basicfinder\basicfinderapi;
@@ -20,16 +32,13 @@ class BasicfinderApi
     private $password = null;
     private $accessToken = null;
     
-    //不可删除
     public function __construct()
     {
     }
     
-    /**
-     * 初始化
-     */
-    public function init($appKey, $appVersion, $username, $password)
+    public function init($apiHost, $appKey, $appVersion, $username, $password)
     {
+        $this->apiHost = $apiHost;
         $this->appKey = $appKey;
         $this->appVersion = $appVersion;
         $this->username = $username;
@@ -111,13 +120,77 @@ class BasicfinderApi
         Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
         if (!empty($response['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $response['error'], $response['message']);
         }
         $result = $response['data'];
         if (!empty($result['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            return $this->format('', $result['error'], $result['message']);
+        }
+        
+        return $this->format($result['data']);
+    }
+    
+    public function batches($page = 1, $count = 10, $keyword = '', $project_id = '')
+    {
+        $_logs = ['$page' => $page, '$count' => $count, '$keyword' => $keyword];
+    
+        $url = $this->apiHost.'/batch/batchs';
+        $data = [
+            'page' => $page,
+            'limit' => $count,
+            'keyword' => $keyword,
+            'project_id' => $project_id
+        ];
+        $_logs['$url'] = $url;
+        $_logs['$data'] = $data;
+    
+        $response = $this->request_with_accesstoken($url, $data, 'post');
+        $_logs['$response'] = $response;
+        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
+        if (!empty($response['error']))
+        {
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            return $this->format('', $response['error'], $response['message']);
+        }
+        $result = $response['data'];
+        if (!empty($result['error']))
+        {
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            return $this->format('', $result['error'], $result['message']);
+        }
+    
+        return $this->format($result['data']);
+    }
+    
+    public function pack($projectId = 0, $batchIds = '', $packScriptId = 0, $configs = '')
+    {
+        $_logs = ['$projectId' => $projectId, '$batchIds' => $batchIds, '$packScriptId' => $packScriptId, '$configs' => $configs];
+        
+        $url = $this->apiHost.'/pack/build';
+        $data = [
+            'project_id' => $projectId,
+            'batch_ids' => $batchIds,
+            'pack_script_id' => $packScriptId,
+            'configs' => $configs
+        ];
+        $_logs['$url'] = $url;
+        $_logs['$data'] = $data;
+        
+        $response = $this->request_with_accesstoken($url, $data, 'post');
+        $_logs['$response'] = $response;
+        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
+        if (!empty($response['error']))
+        {
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            return $this->format('', $response['error'], $response['message']);
+        }
+        $result = $response['data'];
+        if (!empty($result['error']))
+        {
+            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         

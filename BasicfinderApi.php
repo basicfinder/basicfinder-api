@@ -1,6 +1,6 @@
 <?php
 /**
- * 倍赛接口类
+ * basicfinder saas api
  * 
  * @copyright www.basicfinder.com
  * @author lihuixu@basicfinder.com
@@ -21,7 +21,7 @@
 
 namespace basicfinder\basicfinderapi;
 
-use Yii;
+//use Yii;
 
 class BasicfinderApi
 {
@@ -69,31 +69,31 @@ class BasicfinderApi
         
         $response = $this->request($url, $data, 'post');
         $_logs['$response'] = $response;
-        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' accesstoken response '.json_encode($_logs));
+        //Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' accesstoken response '.json_encode($_logs));
         if (!empty($response['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+           // Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
             return $this->format('', $response['error'], $response['message']);
         }
         $result = $response['data'];
         if (!empty($result['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         if (empty($result['data']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         if (empty($result['data']['id']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         if (empty($result['data']['access_token']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         $this->accessToken = $result['data']['access_token'];
@@ -117,16 +117,16 @@ class BasicfinderApi
         
         $response = $this->request_with_accesstoken($url, $data, 'post');
         $_logs['$response'] = $response;
-        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
+        //Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
         if (!empty($response['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $response['error'], $response['message']);
         }
         $result = $response['data'];
         if (!empty($result['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         
@@ -149,16 +149,16 @@ class BasicfinderApi
     
         $response = $this->request_with_accesstoken($url, $data, 'post');
         $_logs['$response'] = $response;
-        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
+        //Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
         if (!empty($response['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $response['error'], $response['message']);
         }
         $result = $response['data'];
         if (!empty($result['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
     
@@ -181,16 +181,16 @@ class BasicfinderApi
         
         $response = $this->request_with_accesstoken($url, $data, 'post');
         $_logs['$response'] = $response;
-        Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
+        //Yii::info(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' Basicfinder response '.json_encode($_logs));
         if (!empty($response['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $response['error'], $response['message']);
         }
         $result = $response['data'];
         if (!empty($result['error']))
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' '.__LINE__.' request error ' . json_encode($_logs));
             return $this->format('', $result['error'], $result['message']);
         }
         
@@ -207,7 +207,7 @@ class BasicfinderApi
         $loginResult = $this->getAccessToken();
         if ($loginResult['error'])
         {
-            Yii::error(__CLASS__.' '.__FUNCTION__.' getAccessToken error ');
+            //Yii::error(__CLASS__.' '.__FUNCTION__.' getAccessToken error ');
             return $this->format('', $loginResult['error'], $loginResult['message']);
         }
         
@@ -224,12 +224,12 @@ class BasicfinderApi
     
 //         if (!empty($result['error']))
 //         {
-//             Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode(array($url_, $result)));
+//             //Yii::error(__CLASS__.' '.__FUNCTION__.' request error ' . json_encode(array($url_, $result)));
     
 //             //若是认证错误, 则更新AccessToken, 再次执行
 //             if ($result['error'] == 'invalid credential' || strpos($result['errmsg'], 'access_token'))
 //             {
-//                 Yii::error(__CLASS__.' '.__FUNCTION__.' getAccessToken error ' . serialize(array($result, $url_, $data, $method)));
+//                 //Yii::error(__CLASS__.' '.__FUNCTION__.' getAccessToken error ' . serialize(array($result, $url_, $data, $method)));
 //                 $accessToken = $this->getAccessToken(true);
 //                 $url_ = $url . (strpos($url, '?') ? '&' : '?') . 'access_token='.$accessToken;
     
